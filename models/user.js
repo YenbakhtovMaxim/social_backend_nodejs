@@ -39,7 +39,7 @@ userSchema.virtual('password')
 
 // methods
 userSchema.methods = {
-	encryptPassword: password => {
+	encryptPassword: (password) => {
 		if(!password) return "";
 		try {
 			return crypto.createHmac('sha1', this.salt)
