@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
 	},
 	salt: String,
 	created: {
-		type: Date;
-		default: Date.now
+		type: Date,
+		default: Date.now,
 	},
 	updated: Date
 });
@@ -32,20 +32,20 @@ userSchema.virtual('password')
 	this._password = password;
 	this.salt = uuidv1();
 	this.hashed_password = this.encryptPassword(password);
-});
+})
 .get(() => {
 	return this.password;
 });
 
 // methods
 userSchema.methods = {
-	encryptPassword: () => {
+	encryptPassword: password => {
 		if(!password) return "";
 		try {
 			return crypto.createHmac('sha1', this.salt)
                    .update(password)
                    .digest('hex');
-		} catcch (err) {
+		} catch (err) {
 			return "";
 		}
 	}
