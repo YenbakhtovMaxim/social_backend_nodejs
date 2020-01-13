@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const postRoutes = require('./routes/post');
 const authRoutes = require('./routes/auth');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const expressValidator  =  require('express-validator');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -24,7 +26,9 @@ const port = process.env.PORT || 8080;
 
 
 app.use(morgan('dev'));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(expressValidator());
 app.use('/', postRoutes);
 app.use('/', authRoutes);
 app.listen(port);
